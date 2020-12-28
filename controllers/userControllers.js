@@ -13,8 +13,8 @@ exports.get_users = async (req, res, next) => {
 //on post request
 exports.add_user = async (req, res, next) => {
   const { USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = req.body;
-  const url = "https://react-app-deneme.herokuapp.com";
-  console.log(url, req.body)
+  //const url = "https://react-app-deneme.herokuapp.com";
+  //console.log(url, req.body)
   try {
 
     const kulla = await UserModel.findOne({EMAIL});
@@ -27,8 +27,7 @@ exports.add_user = async (req, res, next) => {
         FIRSTNAME: FIRSTNAME, 
         LASTNAME: LASTNAME,
         BIRTHDATE: BIRTHDATE, 
-        DESCRIPTION: DESCRIPTION, 
-        IMGURL: url + '/images/' + req.file.filename,
+        DESCRIPTION: DESCRIPTION,
       })
   
       const addedUser = await newUser.save();
