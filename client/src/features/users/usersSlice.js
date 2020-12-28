@@ -48,7 +48,7 @@ export const getUsers = () =>  dispatch => {
 export const addUsers = (data) => async dispatch => {
   const {IMGURL, USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = data;
   try{
-        dispatch(setInitial());
+        console.log(data)
         const userData = new FormData();
         userData.append('image', IMGURL, USERNAME);
         userData.append('USERNAME', USERNAME);
@@ -63,7 +63,7 @@ export const addUsers = (data) => async dispatch => {
         console.log(resp)
         //dispatch(setMessage(resp.data.message))
     }catch(err){
-        dispatch(setDataFailed(err.response.data))
+        dispatch(setDataFailed(err))
     }
 };
 
