@@ -40,7 +40,7 @@ export const usersSlice = createSlice({
 export const { setInitial, setUserRedux, setCompleted, setDataFailed, setUpdateItem, setMessage} = usersSlice.actions;
 
 export const getUsers = () =>  dispatch => {
-    fetch(`${BACK_SERVER_URL}/users`)
+    fetch(`${BACK_SERVER_URL}/api/users`)
     .then(resp => resp.json())
     .then(data => dispatch(setUserRedux(data)))
 };
@@ -57,7 +57,7 @@ export const addUsers = (data) => async dispatch => {
         userData.append('LASTNAME', LASTNAME);
         userData.append('BIRTHDATE', BIRTHDATE);
         userData.append('DESCRIPTION', DESCRIPTION);
-        const resp = await axios.post(`${BACK_SERVER_URL}/users/add`, userData)
+        const resp = await axios.post(`${BACK_SERVER_URL}/api/users/add`, userData)
         dispatch(setCompleted())
         dispatch(getUsers())
         console.log(resp)
@@ -68,7 +68,7 @@ export const addUsers = (data) => async dispatch => {
 };
 
 export const deleteUsers = (id) => async dispatch => {
-   await axios.delete(`${BACK_SERVER_URL}/users/delete/${id}`);
+   await axios.delete(`${BACK_SERVER_URL}/api/users/delete/${id}`);
    dispatch(getUsers())
 };
 
@@ -88,7 +88,7 @@ export const updateUsers = (id, data) => async dispatch => {
     }else {
       updateUserData= data;
     }
-    await axios.put(`${BACK_SERVER_URL}/users/edit/${id}`, updateUserData)
+    await axios.put(`${BACK_SERVER_URL}/api/users/edit/${id}`, updateUserData)
     dispatch(setCompleted())
     dispatch(getUsers())
   }catch(err){
