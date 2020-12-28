@@ -13,7 +13,8 @@ exports.get_users = async (req, res, next) => {
 //on post request
 exports.add_user = async (req, res, next) => {
   const { USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = req.body;
-  const url = req.protocol + '://' + req.get("host");
+  const url = "https://react-app-deneme.herokuapp.com";
+  console.log(url, req.body)
   try {
 
     const kulla = await UserModel.findOne({EMAIL});
