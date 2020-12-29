@@ -57,7 +57,7 @@ export const addUsers = (data) => async dispatch => {
         userData.append('LASTNAME', LASTNAME);
         userData.append('BIRTHDATE', BIRTHDATE);
         userData.append('DESCRIPTION', DESCRIPTION);
-        const resp = await axios.post(`${BACK_SERVER_URL}/api/users/add`, userData)
+        const resp = await axios.post(`${BACK_SERVER_URL}/api/users/add`, data)
         dispatch(setCompleted())
         dispatch(getUsers())
         console.log(resp)
