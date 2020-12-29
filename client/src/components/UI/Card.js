@@ -33,7 +33,7 @@ const Card = (props) => {
                     alt="Kullanıcı Foto" className="image_foto"/>
                 </div>
                 <div className="card_items">
-                    <div className="card_item"> <span className="text-muted"> UserId :</span> {props._id} </div>
+                    <div className="card_item"> <span className="text-muted"> UserId :</span> {props.id} </div>
                     <div className="card_item text-capitalize"> <span className="text-muted"> Username :</span> {props.userName} </div>
                     <div className="card_item"><span className="text-muted"> Email :</span>  { props.email} </div>
                     <div className= { toggle ? "accordion__content" : "accordion__bos"} 
