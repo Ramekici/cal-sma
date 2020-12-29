@@ -12,6 +12,8 @@ const users = require('./routes/users');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+dbConnect();
+
 app.use((req, res, next)=>{
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers",
@@ -21,21 +23,32 @@ app.use((req, res, next)=>{
   next();
 })
 
-dbConnect();
+
 
 app.use("/images", express.static(path.join("images")));
 
 //app.use("/", express.static(path.join(__dirname, "client/src")));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev')); //istek gönderildiğinde bilgileri yazar
-
-
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build')) 
-}
+//app.use(logger('dev')); //istek gönderildiğinde bilgileri yazar
 
 app.use('/api/users', users);
+
+
+// Server static assets if in production
+if (process.env.NODE_ENV === "production") {
+
+  // Set static folder
+  // All the javascript and css files will be read and served from this folder
+  app.use(express.static("client/build"));
+
+  // index.html for all page routes  html or routing and naviagtion
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+
 
 
 
