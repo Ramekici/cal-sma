@@ -75,11 +75,6 @@ const InputText = (props) => {
         })
     }
 
-    useEffect(()=> {
-        setError("Alan Boş Bırakılmamalıdır.");
-    },[inputState.touched]);
-    
-
 
     return (
         <div className="form-group col-lg-6 mt-1">

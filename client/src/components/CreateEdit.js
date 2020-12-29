@@ -79,6 +79,18 @@ const CreateEdit = (props) => {
         }
     },[match])
 
+    useEffect(() =>{
+        if(errors){
+           setError(errors.message) 
+        }
+    },[errors])
+
+    useEffect(()=> {
+        if(completed){
+            history.push("/users");
+        }  
+    }, [completed, history])
+
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -93,16 +105,14 @@ const CreateEdit = (props) => {
         }
         if(match) {
             dispatch(addUsers(payload))
-            if(completed){
-                history.push("/users");
-            }      
+                
         }else {
             dispatch(updateUsers(id, payload));
-            if(completed){
-                history.push("/users");
-            }     
+            
         }
     }
+
+    
 
     //const handleChange = (event) => {
     //    let file;
@@ -115,11 +125,7 @@ const CreateEdit = (props) => {
     //    reader.readAsDataURL(file);
     //};
 
-    useEffect(() =>{
-        if(errors){
-           setError(errors.message) 
-        }
-    },[errors])
+    
 
     return (
         <div className="container mt-5">
