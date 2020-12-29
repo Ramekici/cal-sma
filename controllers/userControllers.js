@@ -72,15 +72,21 @@ exports.edit_user = async (req, res) => {
     IMGURL: IMGURL, 
   };
     try {
-      const updatedUser = await UserModel.findOneAndUpdate( 
-        filter, update,
-        {
-          new: true,
-          upsert: true,
-          runValidators: true,
-        }
-      );
-      res.status(200).json(updatedUser);
+      const kulla = await UserModel.findOne({EMAIL});
+        if(kulla){
+          return res.status(403).json({message: "Bu email daha önce kullanılmıştır."})
+        }else{
+
+          const updatedUser = await UserModel.findOneAndUpdate( 
+            filter, update,
+            {
+              new: true,
+              upsert: true,
+              runValidators: true,
+            }
+          );
+          res.status(200).json(updatedUser);
+          }
     } catch (err) {
       return res.status(500).json({ errors: [{ message: err.message }] });
     }
