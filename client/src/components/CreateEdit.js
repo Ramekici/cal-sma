@@ -42,7 +42,7 @@ const CreateEdit = (props) => {
     const dispatch = useDispatch();
 
     const userRedux = useSelector(selectUsers);
-    const {updateItem, errors} = userRedux;
+    const {updateItem, errors, completed} = userRedux;
 
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputVal : {
@@ -100,14 +100,14 @@ const CreateEdit = (props) => {
         }
         if(match) {
             dispatch(addUsers(payload))
-            if(error === '') {
+            if(completed){
                 history.push("/users");
             }      
         }else {
             dispatch(updateUsers(id, payload));
-            if(error === '') {
+            if(completed){
                 history.push("/users");
-            }      
+            }     
         }
     }
 
