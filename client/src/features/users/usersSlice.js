@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BACK_SERVER_URL }  from '../Config'
-import { stat } from 'fs';
+
 
 export const usersSlice = createSlice({
   name: 'users',

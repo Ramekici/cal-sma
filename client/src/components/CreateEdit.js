@@ -73,12 +73,10 @@ const CreateEdit = (props) => {
 
     useEffect(()=> {
         if(match) {
-            for(let keys in updateItem){
-                onChangeInputHandler(keys, '', false)
-            }
+            dispatchFormState(formState)
             dispatch(setInitial());
         }
-    },[match])
+    },[match, dispatch, dispatchFormState,formState])
 
     useEffect(() =>{
         if(errors){
@@ -198,9 +196,10 @@ const CreateEdit = (props) => {
                         type="text"
                         onChangeInput={onChangeInputHandler}
                     />
-                    <div className="col-lg-6 d-flex mt-3" style={{justifyContent:"flex-end"}}>
+                    <div className="col-lg-6 d-flex mt-3" 
+                        style={{justifyContent:"flex-end"}}>
                         <button 
-                            className="card_button" 
+                            className="card_button_display" 
                             type="submit"
                             disabled={id ? false : !formState.formIsValid}
                             > {id ? "Güncelle" :"Kaydet"}</button>
