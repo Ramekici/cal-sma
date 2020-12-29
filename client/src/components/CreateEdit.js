@@ -37,8 +37,6 @@ const CreateEdit = (props) => {
     let history = useHistory();
     const [error, setError] = useState('')
 
-    //const [picture, setPicture] = useState();
-    const [image, setImage] = useState('');
     const dispatch = useDispatch();
 
     const userRedux = useSelector(selectUsers);
@@ -81,11 +79,6 @@ const CreateEdit = (props) => {
         }
     },[match])
 
-    useEffect(()=>{
-        if(updateItem){
-            setImage(updateItem.IMGURL)
-        }
-    },[updateItem])
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -145,9 +138,9 @@ const CreateEdit = (props) => {
                         value={formState.inputVal.IMGURL}
                         onChangeInput={onChangeInputHandler}
                     />
-                    {(updateItem) &&
+                    {formState.inputVal.IMGURL &&
                     <div style={{width:"120px", height:"120px", borderRadius:"4rem", margin:".2rem", overflow:"hidden"}}>
-                        <img src={image} alt="Fotoğraf Yükleme" style={{width:"100%", height:"100%"}} />
+                        <img src={formState.inputVal.IMGURL} alt="Fotoğraf Yükleme" style={{width:"100%", height:"100%"}} />
                     </div>
                     }
                     <InputText
