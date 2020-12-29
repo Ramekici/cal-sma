@@ -136,19 +136,18 @@ const CreateEdit = (props) => {
             <form onSubmit={onSubmitHandler}>
                 <div className="row no-gutters" 
                 style={{ justifyContent: "center", alignItems: "center", flexDirection:"column" }}>
-                   
+                    <InputText
+                        label="Image Url"
+                        id="IMGURL"
+                        type="url"
+                        value={formState.inputVal.IMGURL}
+                        onChangeInput={onChangeInputHandler}
+                    />
                     {(updateItem) &&
                     <div style={{width:"120px", height:"120px", borderRadius:"4rem", margin:".2rem", overflow:"hidden"}}>
                         <img src={image} alt="Fotoğraf Yükleme" style={{width:"100%", height:"100%"}} />
                     </div>
                     }
-                    <InputText
-                        label="Image Url"
-                        id="IMGURL"
-                        type="url"
-                        value={formState.inputVal.USERNAME}
-                        onChangeInput={onChangeInputHandler}
-                    />
                     <InputText
                         label="UserName"
                         id="USERNAME"
@@ -197,7 +196,7 @@ const CreateEdit = (props) => {
                         type="text"
                         onChangeInput={onChangeInputHandler}
                     />
-                    <div className="col-lg-6 d-flex mt-3"  style={{justifyContent:"flex-end"}}>
+                    <div className="col-lg-6 d-flex mt-3" style={{justifyContent:"flex-end"}}>
                         <button 
                             className="card_button" 
                             type="submit"
