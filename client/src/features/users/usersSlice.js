@@ -46,21 +46,20 @@ export const getUsers = () =>  dispatch => {
 };
 
 export const addUsers = (data) => async dispatch => {
-  const {IMGURL, USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = data;
+  //const {IMGURL, USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = data;
   try{
-        console.log(data)
-        const userData = new FormData();
-        userData.append('image', IMGURL, USERNAME);
-        userData.append('USERNAME', USERNAME);
-        userData.append('EMAIL', EMAIL);
-        userData.append('FIRSTNAME', FIRSTNAME);
-        userData.append('LASTNAME', LASTNAME);
-        userData.append('BIRTHDATE', BIRTHDATE);
-        userData.append('DESCRIPTION', DESCRIPTION);
-        const resp = await axios.post(`${BACK_SERVER_URL}/api/users/add`, data)
+        //console.log(data)
+        //const userData = new FormData();
+        //userData.append('image', IMGURL, USERNAME);
+        //userData.append('USERNAME', USERNAME);
+        //userData.append('EMAIL', EMAIL);
+        //userData.append('FIRSTNAME', FIRSTNAME);
+        //userData.append('LASTNAME', LASTNAME);
+        //userData.append('BIRTHDATE', BIRTHDATE);
+        //userData.append('DESCRIPTION', DESCRIPTION);
+        await axios.post(`${BACK_SERVER_URL}/api/users/add`, data)
         dispatch(setCompleted())
         dispatch(getUsers())
-        console.log(resp)
         //dispatch(setMessage(resp.data.message))
     }catch(err){
         dispatch(setDataFailed(err))
@@ -73,22 +72,22 @@ export const deleteUsers = (id) => async dispatch => {
 };
 
 export const updateUsers = (id, data) => async dispatch => {
-  const {IMGURL, USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = data;
+  //const {IMGURL, USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = data;
   try{
-    let updateUserData;
-    if(typeof(IMGURL) === 'object'){
-      updateUserData = new FormData();
-      typeof(IMGURL) === 'string' ? updateUserData.append('IMGURL', IMGURL,USERNAME):updateUserData.append('image', IMGURL,USERNAME);
-      updateUserData.append('USERNAME', USERNAME);
-      updateUserData.append('EMAIL', EMAIL);
-      updateUserData.append('FIRSTNAME', FIRSTNAME);
-      updateUserData.append('LASTNAME', LASTNAME);
-      updateUserData.append('BIRTHDATE', BIRTHDATE);
-      updateUserData.append('DESCRIPTION', DESCRIPTION);
-    }else {
-      updateUserData= data;
-    }
-    await axios.put(`${BACK_SERVER_URL}/api/users/edit/${id}`, updateUserData)
+    //let updateUserData;
+    //if(typeof(IMGURL) === 'object'){
+    //  updateUserData = new FormData();
+    //  typeof(IMGURL) === 'string' ? updateUserData.append('IMGURL', IMGURL,USERNAME):updateUserData.append('image', IMGURL,USERNAME);
+    //  updateUserData.append('USERNAME', USERNAME);
+    //  updateUserData.append('EMAIL', EMAIL);
+    //  updateUserData.append('FIRSTNAME', FIRSTNAME);
+    //  updateUserData.append('LASTNAME', LASTNAME);
+    //  updateUserData.append('BIRTHDATE', BIRTHDATE);
+    //  updateUserData.append('DESCRIPTION', DESCRIPTION);
+    //}else {
+    //  updateUserData= data;
+    //}
+    await axios.put(`${BACK_SERVER_URL}/api/users/edit/${id}`, data)
     dispatch(setCompleted())
     dispatch(getUsers())
   }catch(err){

@@ -12,7 +12,7 @@ exports.get_users = async (req, res, next) => {
 
 //on post request
 exports.add_user = async (req, res, next) => {
-  const { USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = req.body;
+  const { USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION, IMGURL} = req.body;
   //const url = "https://react-app-deneme.herokuapp.com";
   //console.log(url, req.body)
   try {
@@ -22,6 +22,7 @@ exports.add_user = async (req, res, next) => {
       return res.status(403).json({message: "Bu email daha önce kullanılmıştır."})
     }else{
       const newUser = await new UserModel({
+        IMGURL: IMGURL,
         USERNAME: USERNAME, 
         EMAIL: EMAIL,
         FIRSTNAME: FIRSTNAME, 
@@ -54,12 +55,12 @@ exports.delete_user = async (req, res, next) => {
 
 exports.edit_user = async (req, res) => {
   const filter = { _id: req.params.id };
-  const { USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION} = req.body;
-  let imagePath = req.body.IMGURL;
-  if(req.file) {
-    const url = req.protocol + '://' + req.get("host");
-    imagePath = url + '/images/' + req.file.filename
-  };
+  const { USERNAME, EMAIL, FIRSTNAME, LASTNAME, BIRTHDATE, DESCRIPTION,IMGURL} = req.body;
+  //let imagePath = req.body.IMGURL;
+  //if(req.file) {
+  //  const url = req.protocol + '://' + req.get("host");
+  //  imagePath = url + '/images/' + req.file.filename
+  //};
 
   const update = { 
     USERNAME: USERNAME, 
@@ -68,7 +69,7 @@ exports.edit_user = async (req, res) => {
     LASTNAME: LASTNAME,
     BIRTHDATE: BIRTHDATE, 
     DESCRIPTION: DESCRIPTION, 
-    IMGURL: imagePath, 
+    IMGURL: IMGURL, 
   };
     try {
       const updatedUser = await UserModel.findOneAndUpdate( 

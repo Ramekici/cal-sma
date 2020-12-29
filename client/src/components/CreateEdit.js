@@ -37,15 +37,16 @@ const CreateEdit = (props) => {
     let history = useHistory();
     const [error, setError] = useState('')
 
-    const [picture, setPicture] = useState();
+    //const [picture, setPicture] = useState();
     const [image, setImage] = useState('');
     const dispatch = useDispatch();
 
     const userRedux = useSelector(selectUsers);
-    const {updateItem, errors, message} = userRedux;
+    const {updateItem, errors} = userRedux;
 
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputVal : {
+            IMGURL: updateItem ? updateItem.IMGURL : '', 
             USERNAME: updateItem ? updateItem.USERNAME : '', 
             EMAIL: updateItem ? updateItem.EMAIL: '', 
             FIRSTNAME:updateItem ? updateItem.FIRSTNAME: '', 
@@ -59,7 +60,6 @@ const CreateEdit = (props) => {
             FIRSTNAME:false, 
             LASTNAME:false, 
             BIRTHDATE: false, 
-            DESCRIPTION:false  
         },
         formIsValid: false
     })
@@ -90,7 +90,7 @@ const CreateEdit = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const payload = {
-            IMGURL: picture,
+            IMGURL: formState.inputVal.IMGURL,
             USERNAME: formState.inputVal.USERNAME,
             EMAIL:formState.inputVal.EMAIL,
             FIRSTNAME: formState.inputVal.FIRSTNAME,
@@ -99,7 +99,9 @@ const CreateEdit = (props) => {
             DESCRIPTION: formState.inputVal.DESCRIPTION
         }
         if(match) {
-            dispatch(addUsers(payload))
+            dispatch(addUsers(payload)).then(resp => {
+                history.push("/users");
+            })
         }else {
             dispatch(updateUsers(id, payload)).then(resp => {
                 history.push("/users");
@@ -107,16 +109,16 @@ const CreateEdit = (props) => {
         }
     }
 
-    const handleChange = (event) => {
-        let file;
-        file = event.target.files[0];
-        setPicture(file);
-        const reader = new FileReader();
-        reader.onload = () => {
-        setImage(reader.result)
-        }
-        reader.readAsDataURL(file);
-    };
+    //const handleChange = (event) => {
+    //    let file;
+    //    file = event.target.files[0];
+    //    setPicture(file);
+    //    const reader = new FileReader();
+    //    reader.onload = () => {
+    //    setImage(reader.result)
+    //    }
+    //    reader.readAsDataURL(file);
+    //};
 
     useEffect(() =>{
         if(errors){
@@ -134,19 +136,19 @@ const CreateEdit = (props) => {
             <form onSubmit={onSubmitHandler}>
                 <div className="row no-gutters" 
                 style={{ justifyContent: "center", alignItems: "center", flexDirection:"column" }}>
-                    <div className="col-lg-6">
-                        <label className="mr-2"> Upload Picture </label>
-                        <input 
-                            type="File"
-                            lang="tr"
-                            onChange={handleChange}
-                        />
-                    </div>
-                    {(picture || updateItem) &&
+                   
+                    {(updateItem) &&
                     <div style={{width:"120px", height:"120px", borderRadius:"4rem", margin:".2rem", overflow:"hidden"}}>
                         <img src={image} alt="Fotoğraf Yükleme" style={{width:"100%", height:"100%"}} />
                     </div>
                     }
+                    <InputText
+                        label="Image Url"
+                        id="IMGURL"
+                        type="url"
+                        value={formState.inputVal.USERNAME}
+                        onChangeInput={onChangeInputHandler}
+                    />
                     <InputText
                         label="UserName"
                         id="USERNAME"
