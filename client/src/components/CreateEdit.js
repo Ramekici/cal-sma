@@ -1,7 +1,7 @@
 import React, {useReducer, useCallback, useEffect, useState } from 'react';
 import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import {selectUsers, addUsers, updateUsers} from '../features/users/usersSlice';
+import {selectUsers, addUsers, updateUsers, setInitial} from '../features/users/usersSlice';
 import InputText from './UI/InputText';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -76,6 +76,7 @@ const CreateEdit = (props) => {
             for(let keys in updateItem){
                 onChangeInputHandler(keys, '', false)
             }
+            dispatch(setInitial());
         }
     },[match])
 
