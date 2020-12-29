@@ -99,13 +99,15 @@ const CreateEdit = (props) => {
             DESCRIPTION: formState.inputVal.DESCRIPTION
         }
         if(match) {
-            dispatch(addUsers(payload)).then(resp => {
+            dispatch(addUsers(payload))
+            if(error === '') {
                 history.push("/users");
-            })
+            }      
         }else {
-            dispatch(updateUsers(id, payload)).then(resp => {
+            dispatch(updateUsers(id, payload));
+            if(error === '') {
                 history.push("/users");
-            })
+            }      
         }
     }
 
